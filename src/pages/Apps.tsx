@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import bmiCalcImage from '../assets/BMICalc.jpg';
+// @ts-ignore
+import bmiCalcImage from '../../public/assets/BMICalc.jpg';
 
 const Apps: React.FC = () => (
   <div className="min-h-screen bg-white">

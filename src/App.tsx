@@ -8,25 +8,35 @@ import Apps from './pages/Apps';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import './App.css';
 
-const NavLink = ({ to, children }: { to: string; children: React.ReactNode }) => {
+interface NavLinkProps {
+  to: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}
+
+const NavLink = ({ to, children, onClick, className = '' }: NavLinkProps) => {
   const location = useLocation();
   const isActive = location.pathname === to;
-  
+
   return (
-    <Link 
-      to={to}
-      className={`relative px-4 py-2 text-lg font-medium transition-colors ${
-        isActive ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'
-      }`}
-    >
-      {children}
+    <div className="relative">
+      <Link
+        to={to}
+        onClick={onClick}
+        className={`px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors duration-300 ${
+          isActive ? 'font-medium text-blue-600' : ''
+        } ${className}`}
+      >
+        {children}
+      </Link>
       {isActive && (
         <motion.div 
           className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"
           layoutId="nav-underline"
         />
       )}
-    </Link>
+    </div>
   );
 };
 
