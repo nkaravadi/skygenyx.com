@@ -1,3 +1,4 @@
 export const getBasePath = () => {
-  return process.env.NODE_ENV === 'production' ? '/skygenyx.com' : '';
+  // For custom domain, return empty string to avoid double path
+  return '';
 };

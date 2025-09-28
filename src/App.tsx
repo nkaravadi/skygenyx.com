@@ -2,7 +2,6 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import { useAnalytics } from './hooks/useAnalytics';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getBasePath } from './utils/url';
 import Logo from './components/Logo';
 import Landing from './pages/Landing';
 import Apps from './pages/Apps';
@@ -73,7 +72,7 @@ function App() {
     }
     if (location.pathname !== '/') {
       // If we're not on the homepage, navigate to the homepage first
-      window.location.href = `${getBasePath()}/#contact`;
+      window.location.href = '/#contact';
     } else {
       // If we're already on the homepage, just scroll to contact
       const contactSection = document.getElementById('contact');

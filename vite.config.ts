@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/skygenyx.com/' : '/',
+  base: '/', // Use root path for custom domain
   server: {
     port: 3000,
     strictPort: true,
