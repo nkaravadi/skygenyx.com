@@ -1,7 +1,8 @@
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAnalytics } from './hooks/useAnalytics';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getBasePath } from './utils/url';
 import Logo from './components/Logo';
 import Landing from './pages/Landing';
 import Apps from './pages/Apps';
@@ -62,6 +63,26 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
+  const handleContactClick = useCallback(() => {
+    if (window.gtag) {
+      window.gtag('event', 'contact_click', {
+        'event_category': 'engagement',
+        'event_label': 'contact_button_click',
+        'method': location.pathname === '/' ? 'homepage' : 'navigation'
+      });
+    }
+    if (location.pathname !== '/') {
+      // If we're not on the homepage, navigate to the homepage first
+      window.location.href = `${getBasePath()}/#contact`;
+    } else {
+      // If we're already on the homepage, just scroll to contact
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location.pathname]);
+
   // Initialize analytics
   useAnalytics();
 
@@ -110,16 +131,7 @@ function App() {
                   <NavLink to="/privacy-policy">Privacy Policy</NavLink>
                   <div 
                     className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 cursor-pointer"
-                    onClick={() => {
-                      if (window.gtag) {
-                        window.gtag('event', 'contact_click', {
-                          'event_category': 'engagement',
-                          'event_label': 'desktop_nav_contact_button',
-                          'method': 'desktop_navigation'
-                        });
-                      }
-                      window.location.href = '/#contact';
-                    }}
+                    onClick={handleContactClick}
                   >
                     Contact Us
                   </div>
@@ -156,14 +168,7 @@ function App() {
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer"
                     onClick={() => {
                       setIsMenuOpen(false);
-                      if (window.gtag) {
-                        window.gtag('event', 'contact_click', {
-                          'event_category': 'engagement',
-                          'event_label': 'mobile_nav_contact_button',
-                          'method': 'mobile_navigation'
-                        });
-                      }
-                      window.location.href = '/#contact';
+                      handleContactClick();
                     }}
                   >
                     Contact Us
