@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import bmiCalcImage from '../assets/BMICalc.jpg';
 
 const Apps: React.FC = () => (
   <div className="min-h-screen bg-white">
@@ -29,8 +30,12 @@ const Apps: React.FC = () => (
           <div className="p-1 bg-gradient-to-r from-blue-500 to-blue-700">
             <div className="bg-white p-8 rounded-xl">
               <div className="flex items-center justify-center mb-6">
-                <div className="w-24 h-24 bg-blue-100 rounded-2xl flex items-center justify-center">
-                  <span className="text-4xl">📱</span>
+                <div className="w-24 h-24 bg-blue-100 rounded-2xl flex items-center justify-center overflow-hidden">
+                  <img 
+                    src={bmiCalcImage}
+                    alt="BMI Wellness Tracker App Icon" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">BMI Wellness Tracker</h3>

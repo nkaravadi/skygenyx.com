@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const features = [
   {
@@ -52,12 +53,19 @@ const Landing: React.FC = () => (
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex flex-col sm:flex-row justify-center gap-4"
           >
-            <a 
-              href="#contact" 
+            <Link 
+              to="#contact" 
               className="px-8 py-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                e.preventDefault();
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
               Get in Touch
-            </a>
+            </Link>
             <a 
               href="/apps"
               className="px-8 py-4 bg-white text-blue-600 font-medium rounded-lg hover:bg-gray-100 transition-colors duration-300 border-2 border-blue-600"
@@ -109,6 +117,15 @@ const Landing: React.FC = () => (
         <a 
           href="mailto:info@skygenyx.com"
           className="inline-block px-8 py-4 bg-white text-blue-600 font-medium rounded-lg hover:bg-gray-100 transition-colors duration-300"
+          onClick={() => {
+            if (window.gtag) {
+              window.gtag('event', 'contact_click', {
+                'event_category': 'engagement',
+                'event_label': 'landing_contact_button',
+                'method': 'email'
+              });
+            }
+          }}
         >
           Contact Us
         </a>
