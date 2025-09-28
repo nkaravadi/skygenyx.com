@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { fileURLToPath } from 'url';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -8,11 +9,13 @@ export default defineConfig({
   server: {
     port: 3000,
     strictPort: true,
-    open: true
+    open: true,
+    host: true,
   },
   preview: {
-    port: 3000,
-    strictPort: true
+    port: 3001,
+    strictPort: true,
+    open: true,
   },
   define: {
     'process.env': {}
@@ -23,23 +26,14 @@ export default defineConfig({
     minify: 'terser',
     rollupOptions: {
       input: {
-        main: new URL('./index.html', import.meta.url).pathname,
+        main: fileURLToPath(new URL('./index.html', import.meta.url)),
       },
     },
     chunkSizeWarningLimit: 1000,
   },
-  server: {
-    port: 3000,
-    open: true,
-    host: true,
-  },
-  preview: {
-    port: 3001,
-    open: true,
-  },
   resolve: {
     alias: {
-      '@': new URL('./src', import.meta.url).pathname,
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   optimizeDeps: {

@@ -98,21 +98,21 @@ function App() {
                   <NavLink to="/">Home</NavLink>
                   <NavLink to="/apps">Apps</NavLink>
                   <NavLink to="/privacy-policy">Privacy Policy</NavLink>
-                  <Link 
-                    to="/#contact" 
-                    className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                  <div 
+                    className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 cursor-pointer"
                     onClick={() => {
                       if (window.gtag) {
                         window.gtag('event', 'contact_click', {
                           'event_category': 'engagement',
-                          'event_label': 'nav_contact_button',
-                          'method': 'navigation'
+                          'event_label': 'desktop_nav_contact_button',
+                          'method': 'desktop_navigation'
                         });
                       }
+                      window.location.href = '/#contact';
                     }}
                   >
                     Contact Us
-                  </Link>
+                  </div>
                 </nav>
 
                 {/* Mobile menu button */}
@@ -142,9 +142,8 @@ function App() {
                   <NavLink to="/" onClick={() => setIsMenuOpen(false)}>Home</NavLink>
                   <NavLink to="/apps" onClick={() => setIsMenuOpen(false)}>Apps</NavLink>
                   <NavLink to="/privacy-policy" onClick={() => setIsMenuOpen(false)}>Privacy Policy</NavLink>
-                  <Link 
-                    to="/#contact" 
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                  <div 
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer"
                     onClick={() => {
                       setIsMenuOpen(false);
                       if (window.gtag) {
@@ -154,10 +153,11 @@ function App() {
                           'method': 'mobile_navigation'
                         });
                       }
+                      window.location.href = '/#contact';
                     }}
                   >
                     Contact Us
-                  </Link>
+                  </div>
                 </nav>
             </motion.div>
           )}
